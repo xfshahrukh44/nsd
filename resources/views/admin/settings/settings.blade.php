@@ -3,7 +3,7 @@
 @section('content_header')
 <div class="row mb-2">
   <div class="col-sm-6">
-    <h1 class="m-0 text-dark">Configuration Settings</h1>
+  <h1 class="m-0 text-dark"><i class="nav-icon fas fa-cogs"></i> Configuration Settings</h1>
 </div>
 <!-- /.col -->
 <div class="col-sm-6">
@@ -27,7 +27,7 @@
         @foreach($settings as $setting)
             <!-- main_logo -->
             <div class="form-group col-md-12 mb-2">
-                <label><small>{{$setting->key}}: </small></label>
+                <label><small><strong>{{$setting->key}}: </strong></small></label>
                 <input type="text" name="{{$setting->key}}" class="form-control form-control-sm col-md-12" value="{{$setting->value}}">
             </div>
         @endforeach
@@ -35,7 +35,7 @@
         <!-- submit button -->
         <div class="col-md-10"></div>
         <div class="form-group col-md-2 text-center">
-            <button type="submit" class="btn btn-primary form-control">Save</button>
+            <button type="submit" class="btn btn-primary form-control-sm"><small>Save Changes</small></button>
         </div>
     </form>
     <hr>

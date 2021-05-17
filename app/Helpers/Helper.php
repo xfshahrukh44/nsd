@@ -1,12 +1,45 @@
 <?php
 
-use Carbon\Carbon;
-use App\Models\Marketing;
-use App\Models\Customer;
-use App\Models\Product;
-use App\Models\Order;
-use App\Models\Invoice;
 use App\Models\User;
+use App\Models\Logo;
+use App\Models\Banner;
+use App\Models\Setting;
+use Carbon\Carbon;
+
+function get_main_logo(){
+    if(!$image = (Logo::where('type', 'main')->first())->image){
+        return asset('img/noimg.jpg');
+    }
+    return asset('img/logos') . '/' . $image;
+}
+
+function get_footer_logo(){
+    if(!$image = (Logo::where('type', 'footer')->first())->image){
+        return asset('img/noimg.jpg');
+    }
+    return asset('img/logos') . '/' . $image;
+}
+
+function get_favicon_logo(){
+    if(!$image = (Logo::where('type', 'favicon')->first())->image){
+        return asset('img/noimg.jpg');
+    }
+    return asset('img/logos') . '/' . $image;
+}
+
+function get_banner_by_page($page){
+    if(!$banner = Banner::where('page', $page)->first()){
+        return asset('img/noimg.jpg');
+    }
+    return $banner;
+}
+
+function get_setting_by_key($key){
+    if(!$setting = Setting::where('key', $key)->first()){
+        return '';
+    }
+    return $setting->value;
+}
 
 function return_date($date)
 {

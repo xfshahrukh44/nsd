@@ -29,19 +29,11 @@ class DatabaseSeeder extends Seeder
 
         // Settings
         $settings_array = [
-            'Facebook',
-            'Twitter',
-            'Youtube',
-            'Instagram',
-            'Company Address 1',
-            'Company Address 2',
-            'Phone',
-            'Phone 2',
-            'Email',
-            'Support Email',
-            'Copyright',
-            'Staff Email',
-            'Central Office',
+            'Address Line 1',
+            'Address Line 2',
+            'Contact Number',
+            'Media Requests',
+            'Website/Profile Updates',
         ];
         foreach($settings_array as $key){
             DB::table('settings')->insert([

@@ -32,7 +32,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
   <!-- fancy box -->
-  <!-- <link rel="stylesheet" href="{{asset('fancybox/source/jquery.fancybox.css?v=2.1.7')}}" type="text/css" media="screen" /> -->
+  <link rel="stylesheet" href="{{asset('fancybox/source/jquery.fancybox.css?v=2.1.7')}}" type="text/css" media="screen" />
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
@@ -102,6 +102,26 @@
                     </a>
                 </li>
 
+                <!-- Brand Management -->
+                <li class="nav-item">
+                    <a href="{{route('brand.index')}}" class="nav-link">
+                      <i class="nav-icon far fa-copyright "></i>
+                      <p>
+                        Brand Management
+                      </p>
+                    </a>
+                </li>
+
+                <!-- Feature Management -->
+                <li class="nav-item">
+                    <a href="{{route('feature.index')}}" class="nav-link">
+                      <i class="nav-icon fas fa-tasks "></i>
+                      <p>
+                        Feature Management
+                      </p>
+                    </a>
+                </li>
+
                 <!-- Layout -->
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
@@ -116,6 +136,18 @@
                         <li class="nav-item">
                             <a href="{{route('logo.index')}}" class="nav-link ml-2">
                                 <small>Logo Management</small>
+                            </a>
+                        </li>
+                        <!-- Banner Management -->
+                        <li class="nav-item">
+                            <a href="{{route('banner.index')}}" class="nav-link ml-2">
+                                <small>Banner Management</small>
+                            </a>
+                        </li>
+                        <!-- Article Management -->
+                        <li class="nav-item">
+                            <a href="{{route('article.index')}}" class="nav-link ml-2">
+                                <small>Article Management</small>
                             </a>
                         </li>
                     </ul>
@@ -182,7 +214,7 @@
 <script src="{{asset('dist/js/demo.js')}}"></script>
 
 <!-- fancybox -->
-<!-- <script type="text/javascript" src="{{asset('fancybox/source/jquery.fancybox.pack.js?v=2.1.7')}}"></script> -->
+<script type="text/javascript" src="{{asset('fancybox/source/jquery.fancybox.pack.js?v=2.1.7')}}"></script>
 
 <!-- jquery ui js-->
 <script src="{{asset('plugins/jquery-ui/jquery-ui.min.js')}}"></script>

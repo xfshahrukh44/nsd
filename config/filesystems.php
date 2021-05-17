@@ -58,6 +58,23 @@ return [
             'root' => public_path('img/logos'),
         ],
 
+        // banners
+        'public_banners' => [
+            'driver' => 'local',
+            'root' => public_path('img/banners'),
+        ],
+
+        // articles
+        'public_articles' => [
+            'driver' => 'local',
+            'root' => public_path('img/articles'),
+        ],
+
+        // brands
+        'public_brands' => [
+            'driver' => 'local',
+            'root' => public_path('img/brands'),
+        ],
     ],
 
     /*

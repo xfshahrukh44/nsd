@@ -42,7 +42,7 @@ class LogoController extends Controller
 
             // create new
             $image = $request->main_logo;
-            $imageName = Str::random(10).'.png';
+            $imageName = Str::random(10). '.' . $image->getClientOriginalExtension();
             Storage::disk('public_logos')->put($imageName, \File::get($image));
             $main_logo['image'] = $imageName;
             $main_logo->save();
@@ -60,7 +60,7 @@ class LogoController extends Controller
 
             // create new
             $image = $request->footer_logo;
-            $imageName = Str::random(10).'.png';
+            $imageName = Str::random(10). '.' . $image->getClientOriginalExtension();
             Storage::disk('public_logos')->put($imageName, \File::get($image));
             $footer_logo['image'] = $imageName;
             $footer_logo->save();
@@ -78,7 +78,7 @@ class LogoController extends Controller
 
             // create new
             $image = $request->favicon_logo;
-            $imageName = Str::random(10).'.png';
+            $imageName = Str::random(10). '.' . $image->getClientOriginalExtension();
             Storage::disk('public_logos')->put($imageName, \File::get($image));
             $favicon_logo['image'] = $imageName;
             $favicon_logo->save();
