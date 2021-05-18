@@ -456,7 +456,9 @@ $(document).ready(function(){
   
     // persistent active sidebar
     var element = $('li a[href*="'+ window.location.pathname +'"]');
-    element.parent().addClass('menu-open');
+    element.parent().parent().parent().addClass('menu-open');
+    element.addClass('active');
+    
     // fancybox init
     $(".fancybox").fancybox({
         helpers: {
