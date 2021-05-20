@@ -8,6 +8,7 @@ use App\Models\Setting;
 use App\Models\Article;
 use App\Models\Brand;
 use App\Models\Feature;
+use App\Models\Package;
 
 class HomeController extends Controller
 {
@@ -58,7 +59,8 @@ class HomeController extends Controller
 
     public function packages()
     {
-        return view('web.package.packages');
+        $packages = Package::where('title', '!=', 'Trial')->get();
+        return view('web.package.packages', compact('packages'));
     }
 
     public function contact_us()
