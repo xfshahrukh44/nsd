@@ -74,7 +74,9 @@
                     <table id="example1" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="example1_info">
                         <thead>
                             <tr role="row">
-                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Full Name: activate to sort column ascending">Full Name</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Full Name: activate to sort column ascending">First Name</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Full Name: activate to sort column ascending">Last Name</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Full Name: activate to sort column ascending">Username</th>
                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Email Address: activate to sort column ascending">Email Address</th>
                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Baskets: activate to sort column ascending">Type</th>
                                 <th class="sorting" tabindex="1" aria-controls="example1" rowspan="1" colspan="1" aria-label="Registration Date: activate to sort column ascending">Registration Date</th>
@@ -88,6 +90,12 @@
                             <tr role="row" class="odd">
                                 <!-- name -->
                                 <td class="{{'name'.$user->id}}">{{$user->name}}</td>
+
+                                <!-- last_name -->
+                                <td class="{{'last_name'.$user->id}}">{{$user->last_name}}</td>
+
+                                <!-- user_name -->
+                                <td class="{{'user_name'.$user->id}}">{{$user->user_name}}</td>
 
                                 <!-- email -->
                                 @if($user->email == null)
@@ -160,8 +168,16 @@
                 <table class="table table-bordered table-striped">
                     <tbody id="table_row_wrapper">
                         <tr role="row" class="odd">
-                            <td class="">Full Name</td>
+                            <td class="">First Name</td>
                             <td class="fullname"></td>
+                        </tr>
+                        <tr role="row" class="odd">
+                            <td class="">Last Name</td>
+                            <td class="last_name"></td>
+                        </tr>
+                        <tr role="row" class="odd">
+                            <td class="">Username</td>
+                            <td class="user_name"></td>
                         </tr>
                         <tr role="row" class="odd">
                             <td class="">Email Address</td>
@@ -267,43 +283,36 @@
         var element = $('li a[href*="'+ window.location.pathname +'"]');
         element.parent().addClass('menu-open');
 
+        // global vars
+        var user = "";
+        // fetch user
+        function fetch_user(id){
+            $.ajax({
+                url: '<?php echo(route("user.show", 0)); ?>',
+                type: 'GET',
+                data: {id: id},
+                dataType: 'JSON',
+                async: false,
+                success: function (data) {
+                    user = data.user;
+                }
+            });
+        }
+
         //*** View Profile ***//
         $('.viewProfileButton').on('click', function(){
             var id = $(this).data('id');
-            var url = $(this).data('route');
-            $.ajax({
-                type: 'GET',
-                url: url,
-                dataType: 'json',
-                success: function(response){
-                    $('#viewUserModal').modal('show');
-                    $('.fullname').html(response.user.name);
-                    if(response['profile_picture'] == null){
-                        $("#viewUserModal .profile").attr("src","{{asset('dist/img/avatar.png')}}");
-                    }
-                    else{
-                        $('#viewUserModal .profile').attr("src",response['profile_picture']);
-                    }
-                    if(response.user.email == null){
-                        $('#viewUserModal .emailAddress').html('---');
-                    }
-                    else{
-                        $('#viewUserModal .emailAddress').html(response.user.email);
-                    }
-                    if(response.user.type == null){
-                        $('#viewUserModal .type').html('---');
-                    }
-                    else{
-                        $('#viewUserModal .type').html(response.user.type);
-                    }
-                    if(response.user.created_at == null){
-                        $('#viewUserModal .registrationDate').html('---');
-                    }
-                    else{
-                        $('#viewUserModal .registrationDate').html($('.created_at' + id).html());
-                    }
-                }
-            });
+            fetch_user(id);
+
+            $("#viewUserModal .profile").attr("src","{{asset('dist/img/avatar.png')}}");
+            $('#viewUserModal .fullname').html(user.name ? user.name : '');
+            $('#viewUserModal .last_name').html(user.last_name ? user.last_name : '');
+            $('#viewUserModal .user_name').html(user.user_name ? user.user_name : '');
+            $('#viewUserModal .emailAddress').html(user.email ? user.email : '');
+            $('#viewUserModal .type').html(user.type ? user.type : '');
+            $('#viewUserModal .registrationDate').html(user.created_at ? new Date(user.created_at).toDateString() : '');
+
+            $('#viewUserModal').modal('show');
         });
         // create
         $('#add_item').on('click', function(){
@@ -311,12 +320,15 @@
         //*** edit ***//
         $('.editButton').on('click', function(){
             var id = $(this).data('id');
+            fetch_user(id);
             $('#editForm').attr('action', "{{route('user.update', 1)}}");
             $('#hidden').val(id);
-            $('#editForm .name').val($('.name' + id).html());
-            $('#editForm .email').val($('.email' + id).html());
-            $('#editForm .type').val($('.type' + id).html());
-            $('#editUserModal').modal('show');
+            $('#editForm .name').val(user.name ? user.name : '');
+            $('#editForm .last_name').val(user.last_name ? user.last_name : '');
+            $('#editForm .user_name').val(user.user_name ? user.user_name : '');
+            $('#editForm .email').val(user.email ? user.email : '');
+            $('#editForm .type option[value="'+ user.type +'"]').prop('selected', true);
+                $('#editUserModal').modal('show');
         });
         // delete
         $('.deleteButton').on('click', function(){

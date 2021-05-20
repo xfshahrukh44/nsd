@@ -6,6 +6,18 @@
         <input type="text" name="name" placeholder="Enter name"
         class="form-control name" required max="50">
     </div>
+    <!-- last_name -->
+    <div class="form-group">
+        <label for="">Last Name</label>
+        <input type="text" name="last_name" placeholder="Enter Last Name"
+        class="form-control last_name" required max="50">
+    </div>
+    <!-- user_name -->
+    <div class="form-group">
+        <label for="">Username</label>
+        <input type="text" name="user_name" placeholder="Enter Username"
+        class="form-control user_name" required max="50">
+    </div>
     <!-- email -->
     <div class="form-group">
         <label for="">Email</label>
