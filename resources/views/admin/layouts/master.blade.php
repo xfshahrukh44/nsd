@@ -122,6 +122,16 @@
                     </a>
                 </li>
 
+                <!-- Package Management -->
+                <li class="nav-item">
+                    <a href="{{route('package.index')}}" class="nav-link">
+                      <i class="nav-icon fas fa-money-bill-wave"></i>
+                      <p>
+                        Package Management
+                      </p>
+                    </a>
+                </li>
+
                 <!-- Layout -->
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
