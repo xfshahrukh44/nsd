@@ -26,15 +26,21 @@ class UserController extends Controller
         return view('admin.user.user', compact('users'));
     }
 
-    public function index_realtors()
+    public function index_kickers()
     {
-        $users = $this->userService->paginate_realtors(env('PAGINATE'));
+        $users = $this->userService->paginate_kickers(env('PAGINATE'));
         return view('admin.user.user', compact('users'));
     }
 
-    public function index_cleaners()
+    public function index_punters()
     {
-        $users = $this->userService->paginate_cleaners(env('PAGINATE'));
+        $users = $this->userService->paginate_punters(env('PAGINATE'));
+        return view('admin.user.user', compact('users'));
+    }
+
+    public function index_long_snappers()
+    {
+        $users = $this->userService->paginate_long_snappers(env('PAGINATE'));
         return view('admin.user.user', compact('users'));
     }
     

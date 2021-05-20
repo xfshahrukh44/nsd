@@ -145,60 +145,30 @@ abstract class UserRepository implements RepositoryInterface
         }
     }
 
-    public function paginate_realtors($pagination)
+    public function paginate_kickers($pagination)
     {
         try {
-            return $this->model->where('type', 'Realtor')->paginate($pagination);
+            return $this->model->where('type', 'Kicker')->paginate($pagination);
         }
         catch (\Exception $exception) {
             throw new AllUserException($exception->getMessage());
         }
     }
 
-    public function paginate_cleaners($pagination)
+    public function paginate_punters($pagination)
     {
         try {
-            return $this->model->where('type', 'Cleaner')->paginate($pagination);
+            return $this->model->where('type', 'Punter')->paginate($pagination);
         }
         catch (\Exception $exception) {
             throw new AllUserException($exception->getMessage());
         }
     }
 
-    public function paginate_staff($pagination)
+    public function paginate_long_snappers($pagination)
     {
         try {
-            return $this->model::where('type', '!=', 'rider')->orderBy('created_at', 'DESC')->paginate($pagination);
-        }
-        catch (\Exception $exception) {
-            throw new AllUserException($exception->getMessage());
-        }
-    }
-
-    public function paginate_riders($pagination)
-    {
-        try {
-            return $this->model::where('type', '=', 'rider')->orderBy('created_at', 'DESC')->paginate($pagination);
-        }
-        catch (\Exception $exception) {
-            throw new AllUserException($exception->getMessage());
-        }
-    }
-
-    public function all_staff()
-    {
-        try {
-            return $this->model::where('type', '!=', 'rider')->get();
-        }
-        catch (\Exception $exception) {
-            throw new AllUserException($exception->getMessage());
-        }
-    }
-
-    public function all_riders()
-    {
-        try {
-            return $this->model::where('type', '=', 'rider')->get();
+            return $this->model->where('type', 'Long Snapper')->paginate($pagination);
         }
         catch (\Exception $exception) {
             throw new AllUserException($exception->getMessage());

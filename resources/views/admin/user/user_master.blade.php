@@ -24,9 +24,10 @@
         <select name="type" class="form-control type" required>
             <option value="">Select user type</option>
             <option value="Admin">Admin</option>
-            <option value="Realtor">Realtor</option>
-            <option value="Cleaner">Cleaner</option>
-            <option value="Guest">Guest</option>
+            <option value="User">User</option>
+            <option value="Kicker">Kicker</option>
+            <option value="Punter">Punter</option>
+            <option value="Long Snapper">Long Snapper</option>
         </select>
     </div>
 </div>

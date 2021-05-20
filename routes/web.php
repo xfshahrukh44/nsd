@@ -28,8 +28,9 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
 
     // BLADE INDEXES----------------------------------------------------------------
     Route::get('/dashboard', 'Admin\DashboardController@index')->name('dashboard');
-    Route::get('/index_realtors', 'Admin\UserController@index_realtors')->name('index_realtors');
-    Route::get('/index_cleaners', 'Admin\UserController@index_cleaners')->name('index_cleaners');
+    Route::get('/index_kickers', 'Admin\UserController@index_kickers')->name('index_kickers');
+    Route::get('/index_punters', 'Admin\UserController@index_punters')->name('index_punters');
+    Route::get('/index_long_snappers', 'Admin\UserController@index_long_snappers')->name('index_long_snappers');
     // ----------------------------------------------------------------------------
 
     // API RESOURCES-------------------------------------------------

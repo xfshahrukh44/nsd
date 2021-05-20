@@ -18,121 +18,129 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-              <div class="card-tools">
-                <button class="btn btn-success" id="add_item" data-toggle="modal" data-target="#addUserModal">
-                    <i class="fas fa-plus"></i>
-                </button>
-             </div>
-             <!-- search bar -->
-             <form action="{{route('search_users')}}" class="form-wrapper">
-                <div class="row">
-                    <!-- search bar -->
-                    <div class="topnav col-md-4">
-                        <input name="query" class="form-control" id="search_content" type="text" placeholder="Search..">
-                    </div>
-                    <!-- search button-->
-                    <button type="submit" class="btn btn-primary col-md-0 justify-content-start" id="search_button">
-                        <i class="fas fa-search"></i>
+                <div class="card-tools">
+                    <button class="btn btn-success" id="add_item" data-toggle="modal" data-target="#addUserModal">
+                        <i class="fas fa-plus"></i>
                     </button>
                 </div>
-            </form>
-         </div>
-        <!-- status buttons -->
-        <div class="col-md-12 row p-2 m-0">
-            <!-- All -->
-            <div class="form-group ml-1">
-                <form action="{{route('user.index')}}">
-                    @csrf
-                    <button class="btn btn-primary form-control" type="submit" name="type" value="All">All ({{count_by_type("All")}})</button>
+                <!-- search bar -->
+                <form action="{{route('search_users')}}" class="form-wrapper">
+                    <div class="row">
+                        <!-- search bar -->
+                        <div class="topnav col-md-4">
+                            <input name="query" class="form-control" id="search_content" type="text" placeholder="Search..">
+                        </div>
+                        <!-- search button-->
+                        <button type="submit" class="btn btn-primary col-md-0 justify-content-start" id="search_button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
                 </form>
             </div>
-            <!-- Realtor -->
-            <div class="form-group ml-1">
-                <form action="{{route('index_realtors')}}">
-                    @csrf
-                    <button class="btn btn-primary form-control" type="submit" name="type" value="Realtor">Realtors ({{count_by_type("Realtor")}})</button>
-                </form>
+            <!-- status buttons -->
+            <div class="col-md-12 row p-2 m-0">
+                <!-- All -->
+                <div class="form-group ml-1">
+                    <form action="{{route('user.index')}}">
+                        @csrf
+                        <button class="btn btn-primary form-control" type="submit" name="type" value="All">All ({{count_by_type("All")}})</button>
+                    </form>
+                </div>
+                <!-- Kicker -->
+                <div class="form-group ml-1">
+                    <form action="{{route('index_kickers')}}">
+                        @csrf
+                        <button class="btn btn-primary form-control" type="submit" name="type" value="Kicker">Kickers ({{count_by_type("Kicker")}})</button>
+                    </form>
+                </div>
+                <!-- Punter -->
+                <div class="form-group ml-1">
+                    <form action="{{route('index_punters')}}">
+                        @csrf
+                        <button class="btn btn-primary form-control" type="submit" name="type" value="Punter">Punters ({{count_by_type("Punter")}})</button>
+                    </form>
+                </div>
+                <!-- Long Snapper -->
+                <div class="form-group ml-1">
+                    <form action="{{route('index_long_snappers')}}">
+                        @csrf
+                        <button class="btn btn-primary form-control" type="submit" name="type" value="Long Snapper">Long Snappers ({{count_by_type("Long Snapper")}})</button>
+                    </form>
+                </div>
             </div>
-            <!-- Cleaner -->
-            <div class="form-group ml-1">
-                <form action="{{route('index_cleaners')}}">
-                    @csrf
-                    <button class="btn btn-primary form-control" type="submit" name="type" value="Cleaner">Cleaners ({{count_by_type("Cleaner")}})</button>
-                </form>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <div class="col-md-12" style="overflow-x:auto;">
+                    <table id="example1" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="example1_info">
+                        <thead>
+                            <tr role="row">
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Full Name: activate to sort column ascending">Full Name</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Email Address: activate to sort column ascending">Email Address</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Baskets: activate to sort column ascending">Type</th>
+                                <th class="sorting" tabindex="1" aria-controls="example1" rowspan="1" colspan="1" aria-label="Registration Date: activate to sort column ascending">Registration Date</th>
+                                <th class="sorting" tabindex="1" aria-controls="example1" rowspan="1" colspan="1" aria-label="Actions: activate to sort column ascending">Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @if(count($users) > 0)
+                            @foreach($users as $user)
+                            <tr role="row" class="odd">
+                                <!-- name -->
+                                <td class="{{'name'.$user->id}}">{{$user->name}}</td>
+
+                                <!-- email -->
+                                @if($user->email == null)
+                                    <td class="{{'email'.$user->id}}">---</td>
+                                @else
+                                    <td class="{{'email'.$user->id}}">{{$user->email}}</td>
+                                @endif
+
+                                <!-- staff's type -->
+                                <td class="{{'type'.$user->id}}">{{$user->type}}</td>
+
+                                <!-- registration date -->
+                                @if($user->created_at == null)
+                                <td class="{{'created_at'.$user->id}}">---</td>
+                                @else
+                                <td class="{{'created_at'.$user->id}}">{{return_date($user->created_at)}}</td>
+                                @endif
+
+                                <!-- actions -->
+                                <td>
+                                    <!-- View Profile -->
+                                    <a href="#" class="viewProfileButton" data-id="{{$user->id}}" data-route="{{route('user.show',$user->id)}}">
+                                        <i class="fas fa-user green ml-1"></i>
+                                    </a>
+                                    <!-- Edit -->
+                                    <a href="#" class="editButton" data-id="{{$user->id}}">
+                                        <i class="fas fa-edit blue ml-1"></i>
+                                    </a>
+                                    <!-- Delete -->
+                                    <a href="#" class="deleteButton" data-id="{{$user->id}}">
+                                        <i class="fas fa-trash red ml-1"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            @endforeach
+                            @else
+                                <tr><td colspan="5"><h6 align="center">No record(s) found</h6></td></tr>
+                            @endif
+                        </tbody>
+
+                        <tfoot>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+                @if(count($users) > 0)
+                    {{$users->appends(request()->except('page'))->links()}}
+                @endif
             </div>
         </div>
-         <!-- /.card-header -->
-         <div class="card-body">
-            <div class="col-md-12" style="overflow-x:auto;">
-                <table id="example1" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="example1_info">
-                    <thead>
-                        <tr role="row">
-                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Full Name: activate to sort column ascending">Full Name</th>
-                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Email Address: activate to sort column ascending">Email Address</th>
-                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Baskets: activate to sort column ascending">Type</th>
-                            <th class="sorting" tabindex="1" aria-controls="example1" rowspan="1" colspan="1" aria-label="Registration Date: activate to sort column ascending">Registration Date</th>
-                            <th class="sorting" tabindex="1" aria-controls="example1" rowspan="1" colspan="1" aria-label="Actions: activate to sort column ascending">Actions</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        @if(count($users) > 0)
-                        @foreach($users as $user)
-                        <tr role="row" class="odd">
-                            <!-- name -->
-                            <td class="{{'name'.$user->id}}">{{$user->name}}</td>
-
-                            <!-- email -->
-                            @if($user->email == null)
-                                <td class="{{'email'.$user->id}}">---</td>
-                            @else
-                                <td class="{{'email'.$user->id}}">{{$user->email}}</td>
-                            @endif
-
-                            <!-- staff's type -->
-                            <td class="{{'type'.$user->id}}">{{$user->type}}</td>
-
-                            <!-- registration date -->
-                            @if($user->created_at == null)
-                            <td class="{{'created_at'.$user->id}}">---</td>
-                            @else
-                            <td class="{{'created_at'.$user->id}}">{{return_date($user->created_at)}}</td>
-                            @endif
-
-                            <!-- actions -->
-                            <td>
-                                <!-- View Profile -->
-                                <a href="#" class="viewProfileButton" data-id="{{$user->id}}" data-route="{{route('user.show',$user->id)}}">
-                                    <i class="fas fa-user green ml-1"></i>
-                                </a>
-                                <!-- Edit -->
-                                <a href="#" class="editButton" data-id="{{$user->id}}">
-                                    <i class="fas fa-edit blue ml-1"></i>
-                                </a>
-                                <!-- Delete -->
-                                <a href="#" class="deleteButton" data-id="{{$user->id}}">
-                                    <i class="fas fa-trash red ml-1"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        @endforeach
-                        @else
-                            <tr><td colspan="5"><h6 align="center">No record(s) found</h6></td></tr>
-                        @endif
-                    </tbody>
-                    <tfoot>
-                    </tfoot>
-                </table>
-            </div>
-        </div>
-        <!-- /.card-body -->
-        <div class="card-footer">
-         @if(count($users) > 0)
-         {{$users->appends(request()->except('page'))->links()}}
-         @endif
-     </div>
- </div>
-</div>
+    </div>
 </div>
 
 <!-- Profile view -->
@@ -199,49 +207,49 @@
 
 <!-- Edit view -->
 <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <form id="editForm" method="POST" action="{{route('user.update', 1)}}">
-            <!-- hidden input -->
-            @method('PUT')
-            <input id="hidden" type="hidden" name="hidden">
-            @include('admin.user.user_master')
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary" id="updateButton">Update</button>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-        </form>
+            <form id="editForm" method="POST" action="{{route('user.update', 1)}}">
+                <!-- hidden input -->
+                @method('PUT')
+                <input id="hidden" type="hidden" name="hidden">
+                @include('admin.user.user_master')
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" id="updateButton">Update</button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 </div>
 
 <!-- Delete view -->
 <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="deleteUserModalLabel">Delete User</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <form id="deleteForm" method="POST" action="{{route('user.destroy', 1)}}">
-            <!-- hidden input -->
-            @method('DELETE')
-            @csrf
-            <input class="hidden" type="hidden" name="hidden">
-            <div class="modal-footer">
-                <button class="btn btn-primary" data-dismiss="modal">No</button>
-                <button type="submit" class="btn btn-danger" id="deleteButton">Yes</button>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteUserModalLabel">Delete User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-        </form>
+            <form id="deleteForm" method="POST" action="{{route('user.destroy', 1)}}">
+                <!-- hidden input -->
+                @method('DELETE')
+                @csrf
+                <input class="hidden" type="hidden" name="hidden">
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-danger" id="deleteButton">Yes</button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 </div>
 
 <script>
