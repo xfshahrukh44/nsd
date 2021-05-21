@@ -70,12 +70,28 @@ class HomeController extends Controller
 
     public function web_register()
     {
+        if(auth()->user()){
+            if(auth()->user()->type == 'Admin' || auth()->user()->type == 'User'){
+                return redirect()->route('dashboard');
+            }
+            else{
+                return redirect()->route('home');
+            }
+        }
         $packages = Package::where('title', '!=', 'Trial')->get();
         return view('web.auth.register', compact('packages'));
     }
 
     public function web_login()
     {
+        if(auth()->user()){
+            if(auth()->user()->type == 'Admin' || auth()->user()->type == 'User'){
+                return redirect()->route('dashboard');
+            }
+            else{
+                return redirect()->route('home');
+            }
+        }
         return view('web.auth.login');
     }
 
