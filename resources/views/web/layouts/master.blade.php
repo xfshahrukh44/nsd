@@ -26,7 +26,7 @@
     <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
 
 </head>
-<body style="background-color: {{ (request()->is('profile')) ? '#fff!important;' : '#000!important;' }}" class="">
+<body style="background-color: {{ (request()->is('my_profile')) ? '#fff!important;' : '#000!important;' }}" class="">
     
     <div class="container-fluid topMain">
         <!-- header -->
@@ -44,6 +44,7 @@
                 <li><a href="{{route('kickers')}}">Long Snappers</a></li>
                 <li><a href="{{route('packages')}}">Packages</a></li>
                 @auth
+                    <li><a href="{{route('my_profile')}}">My Profile</a></li>
                     <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a></li>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none" hidden>
                         @csrf
@@ -151,8 +152,16 @@
                     <li><a href="{{route('kickers')}}">Punters</a></li>
                     <li><a href="{{route('kickers')}}">Long Snappers</a></li>
                     <li><a href="{{route('packages')}}">Packages</a></li>
-                    <li><a href="login.html">Login</a></li>
-                    <li><a href="signup.html">register</a></li>
+                    @auth
+                        <li><a href="#">My Profile</a></li>
+                        <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a></li>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none" hidden>
+                            @csrf
+                        </form>
+                    @else
+                        <li><a href="{{route('web_login')}}">Login</a></li>
+                        <li><a href="{{route('web_register')}}">register</a></li>
+                    @endauth
                 </ul>
             </div>
         </div>

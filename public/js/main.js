@@ -3,7 +3,7 @@ function detectScroll() {
      lastnamjeIn = urlName.length-1,
      bg ,
     w = document.getElementById("navbar")
-    urlName[lastnamjeIn] == 'profile' ?( bg = '#000',w.style.backgroundColor = bg) : bg = 'transparent'
+    urlName[lastnamjeIn] == 'my_profile' ?( bg = '#000',w.style.backgroundColor = bg) : bg = 'transparent'
     $(window).scroll(function(e) {
         var t = $(window).scrollTop(),
             n = document.getElementById("navbar"),

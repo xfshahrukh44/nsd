@@ -1,6 +1,8 @@
 @extends('web.layouts.master')
 
 @section('content')
+<!-- sidebars -->
+<img src="{{asset('img/1x/bars-black.svg')}}" fill="black" width="20px" height="" alt="" class="sidebars" onclick="toggleMenu()">
 
 <div class="container-fluid text-center adminNDB">
         <div class="row">

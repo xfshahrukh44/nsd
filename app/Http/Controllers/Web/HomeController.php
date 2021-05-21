@@ -79,8 +79,8 @@ class HomeController extends Controller
         return view('web.auth.login');
     }
 
-    public function profile()
+    public function my_profile()
     {
-        return view('web.profile.profile');
+        return view('web.profile.my_profile');
     }
 }

@@ -71,4 +71,4 @@ Route::get('/packages', 'Web\HomeController@packages')->name('packages');
 Route::get('/contact_us', 'Web\HomeController@contact_us')->name('contact_us');
 Route::get('/web_register', 'Web\HomeController@web_register')->name('web_register');
 Route::get('/web_login', 'Web\HomeController@web_login')->name('web_login');
-Route::get('/profile', 'Web\HomeController@profile')->name('profile');
+Route::get('/my_profile', 'Web\HomeController@my_profile')->name('my_profile');
