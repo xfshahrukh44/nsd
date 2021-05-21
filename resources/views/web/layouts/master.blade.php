@@ -22,8 +22,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw==" crossorigin="anonymous" />
 
+    <!-- fontawesome -->
+    <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
+
 </head>
-<body>
+<body style="background-color: {{ (request()->is('profile')) ? '#fff!important;' : '#000!important;' }}" class="">
     
     <div class="container-fluid topMain">
         <!-- header -->
@@ -40,8 +43,15 @@
                 <li><a href="{{route('kickers')}}">Punters</a></li>
                 <li><a href="{{route('kickers')}}">Long Snappers</a></li>
                 <li><a href="{{route('packages')}}">Packages</a></li>
-                <li><a href="login.html">Login</a></li>
-                <li><a href="signup.html">register</a></li>
+                @auth
+                    <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a></li>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none" hidden>
+                        @csrf
+                    </form>
+                @else
+                    <li><a href="{{route('web_login')}}">Login</a></li>
+                    <li><a href="{{route('web_register')}}">register</a></li>
+                @endauth
             </ul>
             <div class="search">
                 <input type="text" name="" id="" placeholder="Search">

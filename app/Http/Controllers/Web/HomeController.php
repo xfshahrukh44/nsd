@@ -67,4 +67,20 @@ class HomeController extends Controller
     {
         return view('web.contact.contact_us');
     }
+
+    public function web_register()
+    {
+        $packages = Package::where('title', '!=', 'Trial')->get();
+        return view('web.auth.register', compact('packages'));
+    }
+
+    public function web_login()
+    {
+        return view('web.auth.login');
+    }
+
+    public function profile()
+    {
+        return view('web.profile.profile');
+    }
 }

@@ -23,7 +23,12 @@ Auth::routes();
 Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
     // DASHBOARD
     Route::get('/', function () {
-        return redirect()->route('dashboard');
+        if(Auth::user() && (Auth::user()->type == 'Admin' || Auth::user()->type == 'User')){
+            return redirect()->route('dashboard');
+        }
+        else{
+            return redirect()->route('home');
+        }
     });
 
     // BLADE INDEXES----------------------------------------------------------------
@@ -64,3 +69,6 @@ Route::get('/articles', 'Web\HomeController@articles')->name('articles');
 Route::get('/kickers', 'Web\HomeController@kickers')->name('kickers');
 Route::get('/packages', 'Web\HomeController@packages')->name('packages');
 Route::get('/contact_us', 'Web\HomeController@contact_us')->name('contact_us');
+Route::get('/web_register', 'Web\HomeController@web_register')->name('web_register');
+Route::get('/web_login', 'Web\HomeController@web_login')->name('web_login');
+Route::get('/profile', 'Web\HomeController@profile')->name('profile');
