@@ -97,6 +97,13 @@ class HomeController extends Controller
 
     public function my_profile()
     {
+        // $result = get_paypal_access_token();
+        // create_paypal_billing_plan($result['access_token']);
+        // list_paypal_billing_plans($result['access_token']);
+        // activate_paypal_billing_plan($result['access_token']);
+        // create_paypal_billing_agreement($result['access_token']);
+        // show_paypal_agreement_details($result['access_token']);
+        // execute_paypal_agreement($result['access_token']);
         return view('web.profile.my_profile');
     }
 }
