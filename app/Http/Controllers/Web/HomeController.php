@@ -9,6 +9,7 @@ use App\Models\Article;
 use App\Models\Brand;
 use App\Models\Feature;
 use App\Models\Package;
+use App\Models\User;
 
 class HomeController extends Controller
 {
@@ -97,6 +98,7 @@ class HomeController extends Controller
 
     public function my_profile()
     {
+        // PAYPAL STUFF
         // $result = get_paypal_access_token();
         // create_paypal_billing_plan($result['access_token']);
         // list_paypal_billing_plans($result['access_token']);
@@ -104,6 +106,11 @@ class HomeController extends Controller
         // create_paypal_billing_agreement($result['access_token']);
         // show_paypal_agreement_details($result['access_token']);
         // execute_paypal_agreement($result['access_token']);
-        return view('web.profile.my_profile');
+        if(!(auth()->user())){
+            return redirect()->back();
+        }
+
+        $user = User::find(auth()->user()->id);
+        return view('web.profile.my_profile', compact('user'));
     }
 }

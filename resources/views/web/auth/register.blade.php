@@ -17,11 +17,30 @@
                 </div>
                 <div class="inps">
                     <!-- type -->
-                    <select id="" class="wow fadeInLeft" data-wow-delay="0.5s" data-wow-duration="1.5s" name="type">
+                    <!-- <select id="" class="wow fadeInLeft" data-wow-delay="0.5s" data-wow-duration="1.5s" name="type">
                         <option value="Kicker">Kicker</option>
                         <option value="Punter">Punter</option>
                         <option value="Long Snapper">Long Snapper</option>
-                    </select>
+                    </select> -->
+                    <div class="selecType wow fadeInLeft" data-wow-delay="0.5s" data-wow-duration="1.5s" name="type">
+                        <div class="typeLabel">Select Type</div>
+                        <div class="chkboxes">
+                            <div>
+                            <label for="isKicker">Kicker</label>
+                            <input type="checkbox" name="isKicker" id="isKicker">
+                            </div>
+                            
+                            <div>
+                            <label for="isPunter">Punter</label>
+                            <input type="checkbox" name="isPunter" id="isPunter">
+                            </div>
+                            
+                            <div>
+                            <label for="isLongSnapper">Long Snapper</label>
+                            <input type="checkbox" name="isLongSnapper" id="isLongSnapper">
+                            </div>
+                        </div>
+                    </div>
                     <!-- name -->
                     <div class="NameInp mt-50 wow fadeInRight" data-wow-delay="0.5s" data-wow-duration="1.5s">
                         <input type="text" placeholder="First Name" name="name" required>

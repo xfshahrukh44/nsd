@@ -14,7 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    if(Auth::user()){
+        if(Auth::user()->type == 'Admin' || Auth::user()->type == 'User'){
+            return redirect()->route('dashboard');
+        }
+        return redirect()->route('home');
+    }
+    return redirect()->route('home');
 });
 
 Auth::routes();
@@ -23,12 +29,13 @@ Auth::routes();
 Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
     // DASHBOARD
     Route::get('/', function () {
-        if(Auth::user() && (Auth::user()->type == 'Admin' || Auth::user()->type == 'User')){
-            return redirect()->route('dashboard');
-        }
-        else{
+        if(Auth::user()){
+            if(Auth::user()->type == 'Admin' || Auth::user()->type == 'User'){
+                return redirect()->route('dashboard');
+            }
             return redirect()->route('home');
         }
+        return redirect()->route('home');
     });
 
     // BLADE INDEXES----------------------------------------------------------------
@@ -47,17 +54,60 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
     Route::apiResources(['brand'=>'Admin\BrandController']);
     Route::apiResources(['feature'=>'Admin\FeatureController']);
     Route::apiResources(['package'=>'Admin\PackageController']);
+    Route::apiResources(['star_rating'=>'Admin\StarRatingController']);
+    Route::apiResources(['user_video'=>'Admin\UserVideoController']);
     // --------------------------------------------------------------
 
     // SEARCH ROUTES--------------------------------------------------------------------------------------------
     Route::get('/search_users', 'Admin\UserController@search_users')->name('search_users');
-    Route::get('/search_banners', 'Admin\TestimonialController@search_banners')->name('search_banners');
-    Route::get('/search_articles', 'Admin\TestimonialController@search_articles')->name('search_articles');
-    Route::get('/search_brands', 'Admin\TestimonialController@search_brands')->name('search_brands');
-    Route::get('/search_features', 'Admin\TestimonialController@search_features')->name('search_features');
-    Route::get('/search_packages', 'Admin\TestimonialController@search_packages')->name('search_packages');
+    Route::get('/search_banners', 'Admin\BannerController@search_banners')->name('search_banners');
+    Route::get('/search_articles', 'Admin\ArticleController@search_articles')->name('search_articles');
+    Route::get('/search_brands', 'Admin\BrandController@search_brands')->name('search_brands');
+    Route::get('/search_features', 'Admin\FeatureController@search_features')->name('search_features');
+    Route::get('/search_packages', 'Admin\PackageController@search_packages')->name('search_packages');
+    Route::get('/search_star_ratings', 'Admin\StarRatingController@search_star_ratings')->name('search_star_ratings');
+    Route::get('/search_user_video', 'Admin\UserVideoController@search_user_video')->name('search_user_video');
+    // ---------------------------------------------------------------------------------------------------------
+
+    // HELPERS--------------------------------------------------------------------------------------------------
     // ---------------------------------------------------------------------------------------------------------
 });
+
+// ARTISAN COMMAND ROUTES---------------------------------------
+// Route::get('/install', function () {
+//     Illuminate\Support\Facades\Artisan::call('migrate:fresh', [
+//         '--seed' => true
+//     ]);
+// });
+// Route::get('/migrate', function () {
+//     Illuminate\Support\Facades\Artisan::call('migrate');
+// });
+// Route::get('/stepmigrate', function () {
+//     Illuminate\Support\Facades\Artisan::call('migrate:rollback', [
+//         '--step' => 1
+//     ]);
+// });
+Route::get('/clear', function () {
+    Illuminate\Support\Facades\Artisan::call('cache:clear');
+    Illuminate\Support\Facades\Artisan::call('config:clear');
+    Illuminate\Support\Facades\Artisan::call('view:clear');
+    Illuminate\Support\Facades\Artisan::call('route:clear');
+    Illuminate\Support\Facades\Artisan::call('config:cache');
+});
+// Route::get('/passport', function () {
+//     Illuminate\Support\Facades\Artisan::call('passport:install');
+// });
+// Route::get('/key', function () {
+//     Illuminate\Support\Facades\Artisan::call('key:generate');
+// });
+// Route::get('/storage', function () {
+//     Illuminate\Support\Facades\Artisan::call('storage:link');
+// });
+// Route::get('/composer-du', function()
+// {
+//     Illuminate\Support\Facades\Artisan::call('dump-autoload');
+// });
+//--------------------------------------------------------------
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Route::get('/home', function(){
@@ -72,3 +122,13 @@ Route::get('/contact_us', 'Web\HomeController@contact_us')->name('contact_us');
 Route::get('/web_register', 'Web\HomeController@web_register')->name('web_register');
 Route::get('/web_login', 'Web\HomeController@web_login')->name('web_login');
 Route::get('/my_profile', 'Web\HomeController@my_profile')->name('my_profile');
+Route::post('/profile_builder/{id}', 'Admin\UserController@profile_builder')->name('profile_builder');
+
+// truncate all data
+// Route::get('/plug_n_play', function(){
+//     Schema::disableForeignKeyConstraints();
+//     $tableNames = Schema::getConnection()->getDoctrineSchemaManager()->listTableNames();
+//     // dd($tableNames);
+//     DB::table($name)->truncate();
+//     Schema::enableForeignKeyConstraints();
+// })->name('plug_n_play');

@@ -152,9 +152,9 @@
                           <i class="fas fa-edit blue ml-1"></i>
                         </a>
                         <!-- Delete -->
-                        <a href="#" class="deleteButton" data-id="{{$package->id}}">
+                        <!-- <a href="#" class="deleteButton" data-id="{{$package->id}}">
                           <i class="fas fa-trash red ml-1"></i>
-                        </a>
+                        </a> -->
                     </td>
                   </tr>
                 @endforeach

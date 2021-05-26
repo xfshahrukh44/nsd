@@ -75,6 +75,12 @@ return [
             'driver' => 'local',
             'root' => public_path('img/brands'),
         ],
+
+        // thumbnails
+        'public_thumbnails' => [
+            'driver' => 'local',
+            'root' => public_path('img/thumbnails'),
+        ],
     ],
 
     /*

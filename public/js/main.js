@@ -17,7 +17,7 @@ function detectScroll() {
             n = window.innerWidth;
         1366 == t && 1024 == n && (e.style.position = "absolute", e.style.bottom = "0px")
     })
-    console.log(urlName[lastnamjeIn],'ko')
+    console.log(urlName.includes('my_profile'))
 }
 
 function toggleMenu() {
@@ -54,7 +54,7 @@ function changeTab(id,id2){
             // Classes for styling the input
             class: "form-control btn btn-default btn-block",
             // Icon which displays in center of input
-            icon: ""
+            icon: "",
         }, options );
         
         // Create an input inside each matched element
@@ -85,8 +85,16 @@ function changeTab(id,id2){
                 
                 // Create a preview once image has loaded
                 reader.onload = function(e) {
-                    var preview = create_preview(that, e.target.result, settings);
-                    $(that).html(preview);
+                    // var preview = create_preview(that, e.target.result, settings);
+                    // $(that).html(preview);
+                    $('.img-upload-btn').css({
+                        'background':`url(${e.target.result})`,
+                        'background-position-x': '-15px',
+                        'background-size': 'cover',
+                    });
+                    $('.delIcon').removeClass('fa-edit');
+                    $('.delIcon').addClass('fa-trash');
+                    console.log(picker_btn_input)
                 }
                 
                 // Load image
@@ -98,33 +106,37 @@ function changeTab(id,id2){
     };
     
     // Private function for creating a preview element
-    function create_preview(that, src, settings) {
+    // function create_preview(that, src, settings) {
         
-            // The preview image
-            var picker_preview_image = $('<img src="'+src+'" class="img-responsive img-rounded" />');
+    //         // The preview image
+    //         var picker_preview_image = $('<img src="'+src+'" class="img-responsive img-rounded" />');
             
-            // The remove image button
-            var picker_preview_remove = $('<button class="btn btn-link"><span class="glyphicon glyphicon-trash"></span></button>');
+    //         // The remove image button
+    //         var picker_preview_remove = $('<button class="btn btn-link"><span class="glyphicon glyphicon-trash"></span></button>');
             
-            // The preview element
-            var picker_preview = $('<div class=" dflexi"></div>')
-                .append(picker_preview_image)
-                .append(picker_preview_remove);
+    //         // The preview element
+    //         var picker_preview = $('<div class=" dflexi"></div>')
+    //             .append(picker_preview_image)
+    //             .append(picker_preview_remove);
 
-            // Remove image listener
-            picker_preview_remove.click(function() {
-                var btn = create_btn(that, settings);
-                $(that).html(btn);
-            });
+    //         // Remove image listener
+    //         picker_preview_remove.click(function() {
+    //             var btn = create_btn(that, settings);
+    //             $(that).html(btn);
+    //         });
             
-            return picker_preview;
-    };
+    //         return picker_preview;
+    // };
     
 }( jQuery ));
 
 $(document).ready(function() {
-    $('.img-picker').imagePicker({name: 'images'});
-
+    $('.img-picker').imagePicker({name: 'image'});
+    $('.img-upload-btn').css({
+            'background':'url(https://upload.wikimedia.org/wikipedia/commons/7/70/User_icon_BLACK-01.png)',
+            'background-position-x': '-15px',
+            'background-size': 'cover',
+    })
     $('.fakeInpthum').on('click',function() {
         $('#thumbnailInp').click()
     })
@@ -139,7 +151,16 @@ $(document).ready(function() {
     $('#reserLink').on('click',function() {
         $('.mainSave').css('visibility', 'hidden');
     });
-    
+    $('.delIcon').on('click',function() {
+        $('.img-upload-btn').css({
+            'background':'url(https://upload.wikimedia.org/wikipedia/commons/7/70/User_icon_BLACK-01.png)',
+            'background-position-x': '-15px',
+            'background-size': 'cover',
+        });
+        $('.delIcon').addClass('fa-edit');
+        $('.delIcon').removeClass('fa-trash');
+        $( "input[name*='image']" ).val( null );
+    })
 })
 
 

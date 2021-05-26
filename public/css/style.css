@@ -2803,6 +2803,7 @@ button a:hover {
 /* Order correctly by floating highest to the right */
 .adminNDB .rate > label {
     float: right;
+	margin-left: 1px;
 }
 /* The star of the show */
 .adminNDB .rate > label:before {
@@ -2865,3 +2866,43 @@ button a:hover {
 /* .adminNDB {
 	background-color: white;
 } */
+.selecType{
+	width: 100%;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #260dc2;
+    font-family: poppinregular;
+    color: #d3d3d3;
+    font-weight: 600;
+    outline: 0;
+    display: flex;
+    justify-content: space-between;
+}
+.selecType .typeLabel{
+	font-size: 18px;
+}
+	
+.selecType .chkboxes{
+	display: flex;
+    column-gap: 3rem;
+    align-items: center;
+}
+.selecType .chkboxes input{
+	transform: translateY(2px);
+}
+
+.delIcon{
+    position: absolute;
+    background-color: #0a0ae5;
+    color: white;
+    z-index: 1;
+    padding: 12px 12px 10px 12px;
+    border-radius: 100%;
+    font-size: 20px;
+    bottom: 0;
+    right: 43%;
+    cursor:pointer;
+}
+.fa-edit.delIcon{
+    display:none
+}

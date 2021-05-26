@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 use App\Services\UserService;
 use Illuminate\Support\Facades\Validator;
 use Hash;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+use Storage;
 
 class UserController extends Controller
 {
@@ -78,7 +80,7 @@ class UserController extends Controller
     {
         $id = $request->hidden;
         
-        if(!(auth()->user()->id == $id || auth()->user()->type == "admin"))
+        if(!(auth()->user()->id == $id || auth()->user()->type == "Admin"))
         {
             return response()->json([
                 'success' => FALSE,
@@ -125,5 +127,45 @@ class UserController extends Controller
         $users = $this->userService->search_users($query);
 
         return view('admin.user.user', compact('users'));
+    }
+
+    public function profile_builder(Request $request, $id)
+    {
+        // dd($request->all());
+        // $id = $request->hidden;
+        
+        // if(!(auth()->user()->id == $id || auth()->user()->type == "Admin"))
+        // {
+        //     return response()->json([
+        //         'success' => FALSE,
+        //         'message' => 'Not allowed.'
+        //     ]);
+        // }
+        // $validator = Validator::make($request->all(), [
+        //     'name' => 'sometimes|string|max:255',
+        //     'last_name' => 'sometimes|string|max:255',
+        //     'user_name' => 'sometimes|string|max:255',
+        //     'password' => 'sometimes',
+        //     'email' => 'sometimes|unique:users,email,'.$request->hidden,
+        // ]);
+
+        // if($validator->fails())
+        //     return response()->json($validator->errors()->toArray(), 400);
+
+        // if($request->password == NULL){
+        //     $request = Arr::except($request,['password']);
+        // }
+
+        // for request modification
+        $req = Arr::except($request->all(),['image']);
+        
+        // rating
+        if(isset($req['rating'])){
+            $req['rating'] = $req['rating'] / 2; 
+        }
+
+        $this->userService->update($req, $id);
+
+        return redirect()->back();
     }
 }

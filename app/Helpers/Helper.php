@@ -76,10 +76,36 @@ function count_by_type($type){
         $count = count(User::all());
     }
     else{
-        $count = count(User::where('type', $type)->get());
+        $count = count(User::where($type, 1)->get());
     }
     
     return $count;
+}
+
+function get_player_types($user_id){
+    $user = User::find($user_id);
+
+    $types = [];
+    if($user->isKicker == 1){
+        array_push($types, 'Kicker');
+    }
+    if($user->isPunter == 1){
+        array_push($types, 'Punter');
+    }
+    if($user->isLongSnapper == 1){
+        array_push($types, 'Long Snapper');
+    }
+
+    if(count($types) == 0){
+        return 'N/A';
+    }
+    
+    $string = "";
+    foreach($types as $key => $type){
+        $string .= $type . (($key != count($types) - 1) ? ', ' : '.');
+    }
+
+    return $string;
 }
 
 function curl($handle)
@@ -223,7 +249,7 @@ function create_paypal_billing_agreement($access_token, $plan_id = "P-2MR19173KE
         echo 'Error:' . curl_error($ch);
     }
     curl_close($ch);
-    dump(json_decode($result, true));
+    dd(json_decode($result, true));
 
     $data = json_decode($result, true);
     $approval_url = $data['links'][0]['href'];

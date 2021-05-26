@@ -100,9 +100,9 @@
     <div class="card">
       <div class="card-header">
         <div class="card-tools">
-            <button class="btn btn-success" id="add_item" data-toggle="modal" data-target="#addBrandModal">
+            <!-- <button class="btn btn-success" id="add_item" data-toggle="modal" data-target="#addBrandModal">
                 <i class="fas fa-plus"></i>
-            </button>
+            </button> -->
         </div>
         <!-- search bar -->
         <form action="{{route('search_brands')}}" class="form-wrapper">
@@ -159,9 +159,9 @@
                           <i class="fas fa-edit blue ml-1"></i>
                         </a>
                         <!-- Delete -->
-                        <a href="#" class="deleteButton" data-id="{{$brand->id}}">
+                        <!-- <a href="#" class="deleteButton" data-id="{{$brand->id}}">
                           <i class="fas fa-trash red ml-1"></i>
-                        </a>
+                        </a> -->
                     </td>
                   </tr>
                 @endforeach

@@ -50,21 +50,21 @@
                 <div class="form-group ml-1">
                     <form action="{{route('index_kickers')}}">
                         @csrf
-                        <button class="btn btn-primary form-control" type="submit" name="type" value="Kicker">Kickers ({{count_by_type("Kicker")}})</button>
+                        <button class="btn btn-primary form-control" type="submit" name="type" value="Kicker">Kickers ({{count_by_type("isKicker")}})</button>
                     </form>
                 </div>
                 <!-- Punter -->
                 <div class="form-group ml-1">
                     <form action="{{route('index_punters')}}">
                         @csrf
-                        <button class="btn btn-primary form-control" type="submit" name="type" value="Punter">Punters ({{count_by_type("Punter")}})</button>
+                        <button class="btn btn-primary form-control" type="submit" name="type" value="Punter">Punters ({{count_by_type("isPunter")}})</button>
                     </form>
                 </div>
                 <!-- Long Snapper -->
                 <div class="form-group ml-1">
                     <form action="{{route('index_long_snappers')}}">
                         @csrf
-                        <button class="btn btn-primary form-control" type="submit" name="type" value="Long Snapper">Long Snappers ({{count_by_type("Long Snapper")}})</button>
+                        <button class="btn btn-primary form-control" type="submit" name="type" value="Long Snapper">Long Snappers ({{count_by_type("isLongSnapper")}})</button>
                     </form>
                 </div>
             </div>
@@ -78,9 +78,10 @@
                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Full Name: activate to sort column ascending">Last Name</th>
                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Full Name: activate to sort column ascending">Username</th>
                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Email Address: activate to sort column ascending">Email Address</th>
-                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Baskets: activate to sort column ascending">Type</th>
-                                <th class="sorting" tabindex="1" aria-controls="example1" rowspan="1" colspan="1" aria-label="Registration Date: activate to sort column ascending">Registration Date</th>
-                                <th class="sorting" tabindex="1" aria-controls="example1" rowspan="1" colspan="1" aria-label="Actions: activate to sort column ascending">Actions</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Baskets: activate to sort column ascending">Panel Role</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Baskets: activate to sort column ascending">Player Types</th>
+                                <th class="sorting" tabindex="1" aria-controls="example1" rowspan="1" colspan="1" aria-label="Registration Date: activate to sort column ascending" width="200">Registration Date</th>
+                                <th class="sorting" tabindex="1" aria-controls="example1" rowspan="1" colspan="1" aria-label="Actions: activate to sort column ascending" width="100">Actions</th>
                             </tr>
                         </thead>
 
@@ -106,6 +107,9 @@
 
                                 <!-- staff's type -->
                                 <td class="{{'type'.$user->id}}">{{$user->type}}</td>
+                                
+                                <!-- player types -->
+                                <td class="">{{get_player_types($user->id)}}</td>
 
                                 <!-- registration date -->
                                 @if($user->created_at == null)
@@ -203,7 +207,7 @@
 
 <!-- Create view -->
 <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="addUserModalLabel">Add New User</h5>
@@ -223,7 +227,7 @@
 
 <!-- Edit view -->
 <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>

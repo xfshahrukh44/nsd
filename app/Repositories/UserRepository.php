@@ -148,7 +148,7 @@ abstract class UserRepository implements RepositoryInterface
     public function paginate_kickers($pagination)
     {
         try {
-            return $this->model->where('type', 'Kicker')->paginate($pagination);
+            return $this->model->where('isKicker', 1)->paginate($pagination);
         }
         catch (\Exception $exception) {
             throw new AllUserException($exception->getMessage());
@@ -158,7 +158,7 @@ abstract class UserRepository implements RepositoryInterface
     public function paginate_punters($pagination)
     {
         try {
-            return $this->model->where('type', 'Punter')->paginate($pagination);
+            return $this->model->where('isPunter', 1)->paginate($pagination);
         }
         catch (\Exception $exception) {
             throw new AllUserException($exception->getMessage());
@@ -168,7 +168,7 @@ abstract class UserRepository implements RepositoryInterface
     public function paginate_long_snappers($pagination)
     {
         try {
-            return $this->model->where('type', 'Long Snapper')->paginate($pagination);
+            return $this->model->where('isLongSnapper', 1)->paginate($pagination);
         }
         catch (\Exception $exception) {
             throw new AllUserException($exception->getMessage());

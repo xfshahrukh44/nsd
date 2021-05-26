@@ -22,7 +22,7 @@
                 @csrf
                 <div class="col-lg-3 col-md-8 col-sm-10 col-xs-10 text-center signupDin">
                     <div class="logo text-center wow fadeInRight"  data-wow-delay="0.5s" data-wow-duration="1.5s">
-                        <a href="index.html">
+                        <a href="{{route('home')}}">
                             <img src="{{asset('img/1x/logo.png')}}" height="" width="" alt="">
                         </a>
                     </div>

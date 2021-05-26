@@ -40,19 +40,19 @@ class AuthServiceProvider extends ServiceProvider
         // Kicker
         Gate::define('isKicker', function($user)
         {
-            return $user->type === 'Kicker';
+            return $user->isKicker === 1;
         });
 
         // Punter
         Gate::define('isPunter', function($user)
         {
-            return $user->type === 'Punter';
+            return $user->isPunter === 1;
         });
 
         // LongSnapper
         Gate::define('isLongSnapper', function($user)
         {
-            return $user->type === 'Long Snapper';
+            return $user->isLongSnapper === 1;
         });
     }
 }
